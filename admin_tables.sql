@@ -9,7 +9,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE login (
-    email VARCHAR(255) PRIMARY KEY,  -- Vehicle number as the primary key
+    email VARCHAR(255) PRIMARY KEY,  
     password VARCHAR(255) NOT NULL,
     rolename VARCHAR(255) NOT NULL
 );
