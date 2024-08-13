@@ -1,4 +1,4 @@
-package com.fitness.project.exception;
+package com.carparking.project.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

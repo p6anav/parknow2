@@ -1,7 +1,7 @@
-package com.fitness.project.entities;
+package com.carparking.project.entities;
 
 
-import com.fitness.project.domain.UserDto;
+import com.carparking.project.domain.UserDto;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,4 +1,4 @@
-package com.fitness.project.domain;
+package com.carparking.project.domain;
 
 public class UserDto {
 

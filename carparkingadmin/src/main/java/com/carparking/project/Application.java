@@ -1,4 +1,4 @@
-package com.fitness.project;
+package com.carparking.project;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
