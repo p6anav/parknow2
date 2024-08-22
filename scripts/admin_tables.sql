@@ -1,12 +1,14 @@
 
 CREATE TABLE profile (
     vehicle_number BIGINT PRIMARY KEY,      -- Vehicle number as primary key
-    booking_date DATE,                      -- Date of booking
+    booking_date DATE,  
+	parking_stat_time DATE,-- Date of booking
     user_email_id VARCHAR(255),             -- User email ID as a string
     paid_status BOOLEAN,                    -- Paid status as a boolean
     allocated_slot_number VARCHAR(50),      -- Allocated slot number as a string
     booking_source VARCHAR(255),            -- Booking source as a string
     duration_of_allocation INT,
+     payment_date DATE,                      -- Paid status as a boolean
 	role_name VARCHAR(255)
 );
 
@@ -39,5 +41,12 @@ CREATE TABLE slots (
     slot_availability BOOLEAN,
     google_location VARCHAR(255),
     admin_name VARCHAR(255)
+);
+
+CREATE TABLE rates (
+       google_location VARCHAR(255) PRIMARY KEY ,
+       duration INT,
+       charge INT
+
 );
 
