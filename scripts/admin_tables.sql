@@ -37,5 +37,7 @@ CREATE TABLE slots (
     state VARCHAR(255),
     country VARCHAR(255),
     slot_availability BOOLEAN,
-    google_location VARCHAR(255)
+    google_location VARCHAR(255),
+    admin_name VARCHAR(255)
 );
+
