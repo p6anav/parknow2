@@ -1,3 +1,23 @@
+Product Owner
+-------------
+
+1. a business man or owner of a mall can purchase our app through a simple one screen form page
+2. He can select roles, responsibilities and what payment plan he needs
+3. Also he can upload an excel sheet with floor-slot number details in the same screen.
+4. He can create a admin user for the web-app and admin will get the details via email.
+5. after submit roles,slots,login table get data  
+
+
+
+Admin User.
+——————
+
+1. Admin user can see all live parking and history of parking based on dates in screen
+2. He can expand each entry in dash board and he should see all details of that particular user.
+3. He can do some actions like black listing a theft vehicle ,removing a user from system 
+4. If any issues admin can do the allocation of slots based on his wish or app user request 
+
+
 Existing user
 ———————————
 
@@ -20,13 +40,6 @@ New User
 6. If status is paid and user is not black listed only gate will open.
 
 
-Admin User.
-——————
-
-1. Admin user can see all live parking and history of parking based on dates in screen
-2. He can expand each entry in dash board and he should see all details of that particular user.
-3. He can do some actions like black listing a theft vehicle ,removing a user from system 
-4. If any issues admin can do the allocation of slots based on his wish or app user request 
 
 Roles: NEW_USER,ADMIN_USER,EXISTING_USER
 Responsibilities: NEW_USER- no access to app or any application untill or unless he becomes EXISTING_USER, He can scan the QR through that link he can do payment or profile creation
