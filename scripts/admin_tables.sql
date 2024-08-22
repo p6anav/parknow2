@@ -27,3 +27,15 @@ CREATE TABLE actions (
     action_date VARCHAR(255),
     email_id VARCHAR(255)
 );
+
+CREATE TABLE slots (
+    slot_number VARCHAR(255)PRIMARY KEY , -- combination of number ,floor,mall,city,district,state,country
+    floor VARCHAR(255),
+    property_name VARCHAR(255),
+    city VARCHAR(255),
+    district VARCHAR(255),
+    state VARCHAR(255),
+    country VARCHAR(255),
+    slot_availability BOOLEAN,
+    google_location VARCHAR(255)
+);
