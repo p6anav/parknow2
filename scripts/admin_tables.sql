@@ -23,6 +23,11 @@ CREATE TABLE roles (
        responsibilities VARCHAR(255)
 
 );
+CREATE TABLE roles_master (
+       rolename VARCHAR(255) PRIMARY KEY,
+       responsibilities VARCHAR(255)
+
+);
 CREATE TABLE actions (
     vehicle_number VARCHAR(255) PRIMARY KEY,
     blacklisted VARCHAR(255),
