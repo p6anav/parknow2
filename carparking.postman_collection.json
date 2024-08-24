@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "70e5117a-edb0-468c-80b2-293442a0af2d",
+		"name": "carparking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16265533"
+	},
+	"item": [
+		{
+			"name": "allroles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/allRoles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"allRoles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "slotenroll",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"floorSlotDto\": [\n    {\n      \"slotNumber\": [\"A1\", \"A2\", \"A3\"],\n      \"floor\": \"Ground\"\n    },\n    {\n      \"slotNumber\": [\"B1\", \"B2\"],\n      \"floor\": \"First\"\n    }\n  ],\n  \"propertyName\": \"GreenPark Mall\",\n  \"city\": \"New York\",\n  \"district\": \"Manhattan\",\n  \"state\": \"NY\",\n  \"country\": \"USA\",\n  \"slotAvailability\": true,\n  \"googleLocation\": \"40.748817,-73.985428\",\n  \"adminName\": \"sreekumar.abhijith93@gmail.com\",\n  \"userDto\": {\n    \"email\": \"sreekumar.abhijith93@gmail.com\",\n    \"password\": \"test@123\",\n    \"roleName\":\"\"\n  },\n  \"roleDto\": [\n    {\n      \"roleName\": \"Manager\",\n      \"responsibilities\": \"Oversees operations\",\n      \"adminName\": \"John Doe\"\n    },\n    {\n      \"roleName\": \"Security\",\n      \"responsibilities\": \"Ensures safety\",\n      \"adminName\": \"John Doe\"\n    }\n  ],\n  \"ratesDto\": [\n    {\n      \"googleLocation\": \"40.748817,-73.985428\",\n      \"duration\": 60,\n      \"charge\": 10\n    },\n    {\n      \"googleLocation\": \"40.748817,-73.985428\",\n      \"duration\": 120,\n      \"charge\": 15\n    }\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/slotEnroll",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"slotEnroll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "allSlots",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "adminName",
+						"value": "sreekumar.abhijith93@gmail.com",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9000/slots?adminName=sreekumar.abhijith93@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"slots"
+					],
+					"query": [
+						{
+							"key": "adminName",
+							"value": "sreekumar.abhijith93@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stagedRoles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/stagedRoles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"stagedRoles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login-admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"sreekumar.abhijith93@gmail.com\",\n    \"password\":\"test@123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
