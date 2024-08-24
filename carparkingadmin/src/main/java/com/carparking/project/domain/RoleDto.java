@@ -1,25 +1,27 @@
-package com.carparking.project.entities;
+package com.carparking.project.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
-@Entity
-@Table(name = "roles_master")
-public class Role {
 
-    @Id
-    @Column(name="rolename")
+public class RoleDto {
+
     private String roleName;
 
     private String responsibilities;
 
-    public Role() {
-    }
+    private String adminName;
 
-    public Role(String roleName, String responsibilities) {
+    public RoleDto(String roleName, String responsibilities) {
         this.roleName = roleName;
         this.responsibilities = responsibilities;
+    }
+
+    public String getAdminName() {
+        return adminName;
+    }
+
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
     }
 
     public String getRoleName() {

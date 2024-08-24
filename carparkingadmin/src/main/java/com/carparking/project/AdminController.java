@@ -1,7 +1,7 @@
 package com.carparking.project;
 
 import com.carparking.project.domain.UserDto;
-import com.carparking.project.service.AdminService;
+import com.carparking.project.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminController {
 
     @Autowired
-   private  AdminService adminService;
+   private LoginService adminService;
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserDto userDto) throws Exception {

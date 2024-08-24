@@ -12,12 +12,10 @@ import javax.persistence.Table;
 @Table(name="login")
 public class User {
 
-    @Column(name="email")
     @Id
     private String email;
 
-    @Column(name="password")
-    private String passWord;
+    private String password;
 
     @Column(name="rolename")
     private String roleName;
@@ -28,7 +26,7 @@ public class User {
     }
     public User(UserDto userDto){
         this.email = userDto.getEmail();
-        this.passWord = userDto.getPassword();
+        this.password = userDto.getPassword();
         this.roleName = userDto.getRoleName();
     }
 
@@ -57,11 +55,11 @@ public class User {
     }
 
     public String getPassWord() {
-        return passWord;
+        return password;
     }
 
     public void setPassWord(String passWord) {
-        this.passWord = passWord;
+        this.password = passWord;
     }
 
 }

@@ -8,30 +8,25 @@ import java.util.Date;
 public class Profile {
 
     @Id
-    @Column(name = "vehicle_number")
     private Long vehicleNumber;
 
-    @Column(name = "booking_date")
     private Date bookingDate;
 
-    @Column(name = "user_email_id", length = 255)
     private String userEmailId;
 
-    @Column(name = "paid_status")
     private Boolean paidStatus;
 
-    @Column(name = "allocated_slot_number", length = 50)
     private String allocatedSlotNumber;
 
-    @Column(name = "booking_source", length = 255)
     private String bookingSource;
 
-    @Column(name = "duration_of_allocation")
     private Integer durationOfAllocation;
 
-    // Getters and Setters
+    private String roleName;
 
-    public Profile(Long vehicleNumber, Date bookingDate, String userEmailId, Boolean paidStatus, String allocatedSlotNumber, String bookingSource, Integer durationOfAllocation) {
+
+    // Getters and Setters
+    public Profile(Long vehicleNumber, Date bookingDate, String userEmailId, Boolean paidStatus, String allocatedSlotNumber, String bookingSource, Integer durationOfAllocation, String roleName) {
         this.vehicleNumber = vehicleNumber;
         this.bookingDate = bookingDate;
         this.userEmailId = userEmailId;
@@ -39,6 +34,16 @@ public class Profile {
         this.allocatedSlotNumber = allocatedSlotNumber;
         this.bookingSource = bookingSource;
         this.durationOfAllocation = durationOfAllocation;
+        this.roleName = roleName;
+    }
+
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public Long getVehicleNumber() {

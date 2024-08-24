@@ -20,8 +20,8 @@ CREATE TABLE login (
 
 CREATE TABLE roles (
        rolename VARCHAR(255) PRIMARY KEY,
-       responsibilities VARCHAR(255)
-
+       responsibilities VARCHAR(255),
+	   admin_name VARCHAR(255)
 );
 CREATE TABLE roles_master (
        rolename VARCHAR(255) PRIMARY KEY,
@@ -48,12 +48,16 @@ CREATE TABLE slots (
     admin_name VARCHAR(255)
 );
 
+
 CREATE TABLE rates (
+    id INT AUTO_INCREMENT PRIMARY KEY,
 	   google_location VARCHAR(255) ,
        duration INT,
-       charge INT
+       charge INT,
+       	   admin_name VARCHAR(255)
 
 );
+
 
 INSERT INTO roles (rolename, responsibilities) VALUES
 ('NEW_USER', 'barcode-payment'),

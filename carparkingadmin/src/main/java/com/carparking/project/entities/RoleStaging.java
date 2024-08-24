@@ -1,12 +1,15 @@
 package com.carparking.project.entities;
 
+import com.carparking.project.domain.RoleDto;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 @Entity
-@Table(name = "roles_master")
-public class Role {
+@Table(name = "roles")
+public class RoleStaging {
 
     @Id
     @Column(name="rolename")
@@ -14,12 +17,15 @@ public class Role {
 
     private String responsibilities;
 
-    public Role() {
+    private String adminName;
+
+    public RoleStaging() {
     }
 
-    public Role(String roleName, String responsibilities) {
-        this.roleName = roleName;
-        this.responsibilities = responsibilities;
+    public RoleStaging(RoleDto roleDto, String email) {
+        this.roleName = roleDto.getRoleName();
+        this.responsibilities = roleDto.getResponsibilities();
+        this.adminName = email;
     }
 
     public String getRoleName() {
@@ -32,6 +38,14 @@ public class Role {
 
     public String getResponsibilities() {
         return responsibilities;
+    }
+
+    public String getAdminName() {
+        return adminName;
+    }
+
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
     }
 
     public void setResponsibilities(String responsibilities) {
