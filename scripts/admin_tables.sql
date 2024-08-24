@@ -44,12 +44,11 @@ CREATE TABLE slots (
 );
 
 CREATE TABLE rates (
-       google_location VARCHAR(255) PRIMARY KEY ,
+	   google_location VARCHAR(255) ,
        duration INT,
        charge INT
 
 );
-
 
 INSERT INTO roles (rolename, responsibilities) VALUES
 ('NEW_USER', 'barcode-payment'),
