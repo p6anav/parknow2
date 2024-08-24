@@ -50,3 +50,8 @@ CREATE TABLE rates (
 
 );
 
+
+INSERT INTO roles (rolename, responsibilities) VALUES
+('NEW_USER', 'barcode-payment'),
+('ADMIN_USER', 'All'),
+('EXISTING_USER', 'barcode-payment-slots');
