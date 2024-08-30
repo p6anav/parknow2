@@ -29,6 +29,7 @@ public class LoginService {
     }
 
     public String signUp(UserDto userDto, String ADMIN_USER) throws Exception {
+        userDto.setRoleName(ADMIN_USER);
         User user = loginRepository.save(new User(userDto));
         if(Objects.nonNull(user)){
             emailService.sendEmail(user);
