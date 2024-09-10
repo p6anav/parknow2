@@ -11,16 +11,16 @@ class LeftContainer2 extends StatelessWidget {
     final labelFontSize = screenWidth * 0.01; // 1% of screen width
     final textFontSize = screenWidth * 0.012; // 1.2% of screen width
     final textFieldHeight = screenHeight * 0.05; // Height for text fields
-    final buttonHeight = screenHeight * 0.06; // Adjust button height as needed
+    final buttonHeight = screenHeight * 0.03; // Adjust button height as needed
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 2.0),
       child: Column(
         children: [
-          SizedBox(height: 10.0), // Space above the container
+          SizedBox(height: 2.0), // Space above the container
           Container(
             width: screenWidth * 0.5, // Container width
-            height: screenHeight * 0.48, // Container height
+            height: screenHeight * 0.45, // Container height
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 0, 0, 0),
               borderRadius: BorderRadius.circular(20.0),
@@ -30,12 +30,12 @@ class LeftContainer2 extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 10.0),
+                  SizedBox(height: 2.0),
                   Text(
                     'First Name',
                     style: TextStyle(color: Colors.white, fontSize: labelFontSize),
                   ),
-                  SizedBox(height: 5.0),
+                  SizedBox(height: 2.0),
                   Container(
                     height: textFieldHeight,
                     child: TextField(
@@ -50,7 +50,7 @@ class LeftContainer2 extends StatelessWidget {
                       style: TextStyle(fontSize: textFontSize, color: Colors.white),
                     ),
                   ),
-                  SizedBox(height: 10.0),
+                  SizedBox(height: 2.0),
                   Text(
                     'Email',
                     style: TextStyle(color: Colors.white, fontSize: labelFontSize),
@@ -70,12 +70,12 @@ class LeftContainer2 extends StatelessWidget {
                       style: TextStyle(fontSize: textFontSize, color: Colors.white),
                     ),
                   ),
-                  SizedBox(height: 10.0),
+                  SizedBox(height: 1.0),
                   Text(
                     'What can I help you with?',
                     style: TextStyle(color: Colors.white, fontSize: labelFontSize),
                   ),
-                  SizedBox(height: 2.0),
+                  SizedBox(height: 0.0),
                   Container(
                     height: textFieldHeight * 2.3, // Multi-line text area
                     child: TextField(
@@ -91,7 +91,7 @@ class LeftContainer2 extends StatelessWidget {
                       style: TextStyle(fontSize: textFontSize, color: Colors.white),
                     ),
                   ),
-                  SizedBox(height: 2.0),
+                  SizedBox(height: 1.5),
                   Center(
                     child: ElevatedButton(
                       onPressed: () {
@@ -105,10 +105,10 @@ class LeftContainer2 extends StatelessWidget {
                         ),
                       ),
                       style: ElevatedButton.styleFrom(
-                        primary:  Color.fromARGB(255, 235, 231, 11), // Background color
+                        primary: Color.fromARGB(255, 235, 231, 11), // Background color
                         onPrimary: const Color.fromARGB(255, 0, 0, 0), // Text color
                         minimumSize: Size(double.infinity, buttonHeight), // Set button height
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        padding: EdgeInsets.symmetric(vertical: 10.0),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0), // Corner radius
                         ),

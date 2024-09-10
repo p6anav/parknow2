@@ -1,7 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class RightContainer extends StatelessWidget {
+class RightContainer extends StatefulWidget {
+  @override
+  _RightContainerState createState() => _RightContainerState();
+}
+
+class _RightContainerState extends State<RightContainer> {
+  // Define controllers for each input field
+  final nameController = TextEditingController();
+  final phoneController = TextEditingController();
+  final adminNameController = TextEditingController();
+  final rolesController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final paymentController = TextEditingController();
+  final propertyNameController = TextEditingController();
+  final propertyLocationController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Dispose of controllers when the widget is destroyed
+    nameController.dispose();
+    phoneController.dispose();
+    adminNameController.dispose();
+    rolesController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    paymentController.dispose();
+    propertyNameController.dispose();
+    propertyLocationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -11,263 +42,142 @@ class RightContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(25.0),
       ),
       child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Heading
-            RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: "Let's ",
-                    style: TextStyle(
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  TextSpan(
-                    text: "Talk",
-                    style: TextStyle(
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 235, 231, 11),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 12.0),
-            Text(
-              "We're here to assist you with",
-              style: TextStyle(
-                fontSize: 20.0,
-                color: Colors.grey[400],
-              ),
-            ),
-            Text(
-              "anything you need.",
-              style: TextStyle(
-                fontSize: 20.0,
-                color: Colors.grey[400],
-              ),
-            ),
-            SizedBox(height: 24.0),
-            // Dropdown and Text Fields Rows
-             _buildLabeledTextFieldsRow(
-              'Name',
-              'Enter your name',
-              'Phone',
-              'Enter your phone number',
-              'lib/assets/icons/person.svg', // Icon for Name field
-              'lib/assets/icons/phone.svg', // Icon for Phone field
-            ),
-            _buildDropdownTextFieldsRow(
-              'Country',
-              ['USA', 'Canada', 'Mexico'],
-              'State',
-              ['California', 'Texas', 'New York'],
-            ),
-            _buildDropdownTextFieldsRow(
-              'District',
-              ['District 1', 'District 2', 'District 3'],
-              'City',
-              ['City A', 'City B', 'City C'],
-            ),
-           
-            _buildLabeledTextFieldsRow(
-              'Admin Name',
-              'Enter your admin name',
-              'Roles',
-              'Enter roles',
-              'lib/assets/icons/person.svg', // Icon for Admin Name field
-              'lib/assets/icons/role.svg', // Icon for Roles field
-            ),
-            _buildLabeledTextFieldsRow(
-              'Email*',
-              'Enter your email',
-              'Password',
-              'Enter your password',
-              'lib/assets/icons/email.svg', // Icon for Email field
-              'lib/assets/icons/lock.svg', // Icon for Password field
-            ),
-           
-            _buildLabeledTextFieldsRow(
-              'Payment/Hour',
-              'Enter payment',
-              'Property Name',
-              'Enter your Property Name',
-              'lib/assets/icons/rupee.svg', // Icon for Payment/Hour field
-              'lib/assets/icons/property.svg', // Icon for Additional info field
-            ),
-             _buildLabeledTextFieldsRowWithButtons(
-              'Property Location',
-              ' property location',
-              'Upload*',
-              'Enter file name',
-              'lib/assets/icons/location.svg', // Icon for Property Location field
-              'lib/assets/icons/attachment.svg', // Icon for Upload1 field
-              'Property Location',
-            ),
-            SizedBox(height: 20.0),
-            // Submit Button
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  // Handle button press
-                },
-                style: ElevatedButton.styleFrom(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 200.0, vertical: 15.0),
-                  primary:  Color.fromARGB(255, 235, 231, 11),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            bool isSmallScreen = constraints.maxWidth < 600;
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "Let's ",
+                        style: TextStyle(
+                          fontSize: 30.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      TextSpan(
+                        text: "Talk",
+                        style: TextStyle(
+                          fontSize: 30.0,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 235, 231, 11),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                child: Text(
-                  'Submit',
+                SizedBox(height: 12.0),
+                Text(
+                  "We're here to assist you with anything you need.",
                   style: TextStyle(
-                    fontSize: 18.0,
-                    color: Colors.black,
+                    fontSize: 20.0,
+                    color: Colors.grey[400],
                   ),
                 ),
-              ),
-            ),
-          ],
+                SizedBox(height: 24.0),
+                // Dynamic fields with controllers
+                _buildLabeledTextFieldsRow(
+                  'Name',
+                  'Enter your name',
+                  'Phone',
+                  'Enter your phone number',
+                  'lib/assets/icons/person.svg',
+                  'lib/assets/icons/phone.svg',
+                  nameController,
+                  phoneController,
+                  isSmallScreen,
+                ),
+                _buildLabeledTextFieldsRow(
+                  'Admin Name',
+                  'Enter your admin name',
+                  'Roles',
+                  'Enter roles',
+                  'lib/assets/icons/person.svg',
+                  'lib/assets/icons/role.svg',
+                  adminNameController,
+                  rolesController,
+                  isSmallScreen,
+                ),
+                _buildLabeledTextFieldsRow(
+                  'Email*',
+                  'Enter your email',
+                  'Password',
+                  'Enter your password',
+                  'lib/assets/icons/email.svg',
+                  'lib/assets/icons/lock.svg',
+                  emailController,
+                  passwordController,
+                  isSmallScreen,
+                ),
+                _buildLabeledTextFieldsRow(
+                  'Payment/Hour',
+                  'Enter payment',
+                  'Property Name',
+                  'Enter your Property Name',
+                  'lib/assets/icons/rupee.svg',
+                  'lib/assets/icons/property.svg',
+                  paymentController,
+                  propertyNameController,
+                  isSmallScreen,
+                ),
+                _buildLabeledTextFieldsWithSeparateButtons(
+                  'Property Location',
+                  'Enter property location',
+                  'Location',
+                  'Upload',
+                  'lib/assets/icons/location.svg',
+                  'lib/assets/icons/attachment.svg',
+                  propertyLocationController,
+                  isSmallScreen,
+                ),
+                SizedBox(height: 20.0),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Handle form submission
+                      print('Name: ${nameController.text}');
+                      print('Phone: ${phoneController.text}');
+                      print('Admin Name: ${adminNameController.text}');
+                      print('Roles: ${rolesController.text}');
+                      print('Email: ${emailController.text}');
+                      print('Password: ${passwordController.text}');
+                      print('Payment: ${paymentController.text}');
+                      print('Property Name: ${propertyNameController.text}');
+                      print(
+                          'Property Location: ${propertyLocationController.text}');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: isSmallScreen ? 100.0 : 200.0, // Adjust padding based on screen size
+                        vertical: 15.0,
+                      ),
+                      primary: Color.fromARGB(255, 235, 231, 11),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                    ),
+                    child: Text(
+                      'Submit',
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
   }
 
-  Widget _buildDropdownTextFieldsRow(
-    String leftLabel,
-    List<String> leftItems,
-    String rightLabel,
-    List<String> rightItems,
-  ) {
-    String? selectedLeftItem;
-    String? selectedRightItem;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Left Dropdown Column
-          Expanded(
-            flex: 2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    SizedBox(width: 3.0),
-                    Text(
-                      leftLabel,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 8.0),
-                Container(
-                  height: 50.0,
-                  
-                  padding: EdgeInsets.symmetric(horizontal: 10.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey[400]!),
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: DropdownButton<String>(
-                    value: selectedLeftItem,
-                    hint: Text(
-                      'Select $leftLabel',
-                      style: TextStyle(color: Colors.white.withOpacity(0.6)),
-                    ),
-                    isExpanded: true,
-                    dropdownColor: Colors.black,
-                    underline: SizedBox(),
-                    icon: Icon(Icons.arrow_drop_down, color: Colors.white),
-                    items: leftItems.map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(
-                          value,
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      );
-                    }).toList(),
-                    onChanged: (newValue) {
-                      selectedLeftItem = newValue!;
-                      // Update the state or handle logic here
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(width: 12.0),
-          // Right Dropdown Column
-          Expanded(
-            flex: 2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    SizedBox(width: 8.0),
-                    Text(
-                      rightLabel,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 8.0),
-                Container(
-                  height: 50.0,
-                  padding: EdgeInsets.symmetric(horizontal: 10.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey[400]!),
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: DropdownButton<String>(
-                    value: selectedRightItem,
-                    hint: Text(
-                      'Select $rightLabel',
-                      style: TextStyle(color: Colors.white.withOpacity(0.6)),
-                    ),
-                    isExpanded: true,
-                    dropdownColor: Colors.black,
-                    underline: SizedBox(),
-                    icon: Icon(Icons.arrow_drop_down, color: Colors.white),
-                    items: rightItems.map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(
-                          value,
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      );
-                    }).toList(),
-                    onChanged: (newValue) {
-                      selectedRightItem = newValue!;
-                      // Update the state or handle logic here
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
+  // Text Field Row with TextEditingControllers
   Widget _buildLabeledTextFieldsRow(
     String leftLabel,
     String leftHint,
@@ -275,281 +185,173 @@ class RightContainer extends StatelessWidget {
     String rightHint,
     String leftIconPath,
     String rightIconPath,
+    TextEditingController leftController,
+    TextEditingController rightController,
+    bool isSmallScreen,
   ) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
+    if (isSmallScreen) {
+      return Column(
+        children: [
+          _buildLabeledTextField(
+              leftLabel, leftHint, leftIconPath, leftController),
+          SizedBox(height: 12.0),
+          _buildLabeledTextField(
+              rightLabel, rightHint, rightIconPath, rightController),
+        ],
+      );
+    } else {
+      return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Left Column
           Expanded(
-            flex: 2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    SizedBox(width: 8.0),
-                    Text(
-                      leftLabel,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 8.0),
-                SizedBox(
-                  height: 50.0,
-                  child: TextField(
-                    textAlign: TextAlign.center,
-                    decoration: InputDecoration(
-                      hintText: leftHint,
-                      hintStyle: TextStyle(
-                          fontSize: 16.0, color: Colors.white.withOpacity(0.6)),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SvgPicture.asset(
-                          leftIconPath,
-                          color:  Color.fromARGB(255, 235, 231, 11),
-                          height: 16.0, // Adjust the height of the icon
-                          width: 16.0, // Adjust the width of the icon
-                        ),
-                      ),
-                    ),
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ],
-            ),
+            child: _buildLabeledTextField(
+                leftLabel, leftHint, leftIconPath, leftController),
           ),
           SizedBox(width: 12.0),
-          // Right Column
           Expanded(
-            flex: 2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    SizedBox(width: 8.0),
-                    Text(
-                      rightLabel,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 8.0),
-                SizedBox(
-                  height: 50.0,
-                  child: TextField(
-                    textAlign: TextAlign.center,
-                    decoration: InputDecoration(
-                      hintText: rightHint,
-                      hintStyle: TextStyle(
-                          fontSize: 16.0, color: Colors.white.withOpacity(0.6)),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SvgPicture.asset(
-                          rightIconPath,
-                          color:   Color.fromARGB(255, 235, 231, 11),
-                          height: 16.0, // Adjust the height of the icon
-                          width: 16.0, // Adjust the width of the icon
-                        ),
-                      ),
-                    ),
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ],
-            ),
+            child: _buildLabeledTextField(
+                rightLabel, rightHint, rightIconPath, rightController),
           ),
         ],
-      ),
+      );
+    }
+  }
+
+  // Text Field with Separate Buttons and TextEditingController
+  Widget _buildLabeledTextFieldsWithSeparateButtons(
+    String label,
+    String hint,
+    String leftButtonLabel,
+    String rightButtonLabel,
+    String leftIconPath,
+    String rightIconPath,
+    TextEditingController controller,
+    bool isSmallScreen,
+  ) {
+    if (isSmallScreen) {
+      return Column(
+        children: [
+          _buildLabeledTextFieldWithSeparateButtons(
+              label, hint, leftIconPath, controller, leftButtonLabel),
+          SizedBox(height: 12.0),
+          _buildLabeledTextFieldWithSeparateButtons(
+              'Upload', '', rightIconPath, controller, rightButtonLabel),
+        ],
+      );
+    } else {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: _buildLabeledTextFieldWithSeparateButtons(
+                label, hint, leftIconPath, controller, leftButtonLabel),
+          ),
+          SizedBox(width: 12.0),
+          Expanded(
+            child: _buildLabeledTextFieldWithSeparateButtons(
+                'Upload', '', rightIconPath, controller, rightButtonLabel),
+          ),
+        ],
+      );
+    }
+  }
+
+  // Common function to build Text Field with Controller
+  Widget _buildLabeledTextField(String label, String hint, String iconPath,
+      TextEditingController controller) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label, style: TextStyle(fontSize: 16.0, color: Colors.white)),
+        SizedBox(height: 8.0),
+        TextField(
+          controller: controller,
+          decoration: InputDecoration(
+            hintText: hint,
+            hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)),
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
+            prefixIcon: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SvgPicture.asset(
+                iconPath,
+                color: Color.fromARGB(255, 235, 231, 11),
+              ),
+            ),
+          ),
+          style: TextStyle(color: Colors.white),
+        ),
+      ],
     );
   }
 
-  Widget _buildLabeledTextFieldsRowWithButtons(
-    String leftLabel,
-    String leftHint,
-    String rightLabel,
-    String rightHint,
-    String leftIconPath,
-    String rightIconPath,
-    String buttonLabel,
-  ) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Left Column with Button
-          Expanded(
-            flex: 2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    SizedBox(width: 8.0),
-                    Text(
-                      leftLabel,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
+  // Build Text Field with Button
+  Widget _buildLabeledTextFieldWithSeparateButtons(String label, String hint,
+      String iconPath, TextEditingController controller, String buttonLabel) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 16.0,
+            color: Colors.white,
+          ),
+        ),
+        SizedBox(height: 8.0),
+        Stack(
+          children: [
+            TextField(
+              controller: controller, // Assign the controller here
+              decoration: InputDecoration(
+                hintText: hint,
+                hintStyle: TextStyle(
+                  color: Colors.white.withOpacity(0.6),
                 ),
-               
-                SizedBox(height: 8.0),
-                SizedBox(
-                  height: 120.0, // Increased height to accommodate buttons
-                  child: Stack(
-                    children: [
-                      TextField(
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          hintText: leftHint,
-                          hintStyle: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.white.withOpacity(0.6)),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          prefixIcon: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SvgPicture.asset(
-                              leftIconPath,
-                              color:  Color.fromARGB(255, 235, 231, 11),
-                              height: 16.0, // Adjust the height of the icon
-                              width: 16.0, // Adjust the width of the icon
-                            ),
-                          ),
-                          contentPadding: EdgeInsets.symmetric(vertical: 60.0),
-                        ),
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      Positioned(
-                        bottom: 10,
-                        left: 70,
-                        right: 70,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              width: 130.0, // Custom width for left button
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  // Handle map button press
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  primary:  Color.fromARGB(255, 235, 231, 11),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  padding: EdgeInsets.symmetric(vertical: 8.0),
-                                ),
-                                child: Text(
-                                  'Pick on Map',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 12.0,fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 130.0, // Custom width for right button
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  // Handle new button press
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  primary: Color.fromARGB(255, 235, 231, 11),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  padding: EdgeInsets.symmetric(vertical: 8.0),
-                                ),
-                                child: Text(
-                                  'New Action',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 12.0,fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                prefixIcon: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SvgPicture.asset(
+                    iconPath,
+                    color: Color.fromARGB(255, 235, 231, 11),
                   ),
                 ),
-              ],
-            ),
-          ),
-          SizedBox(width: 12.0),
-          // Right Column
-          Expanded(
-            flex: 2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    SizedBox(width: 8.0),
-                    Text(
-                      rightLabel,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.white,
-                      ),
+                suffixIcon: TextButton(
+                  onPressed: () {
+                    // Handle button action here
+                    if (buttonLabel == 'Location') {
+                      // Handle location logic
+                      print('Location button pressed');
+                    } else if (buttonLabel == 'Upload') {
+                      // Handle upload logic
+                      print('Upload button pressed');
+                    }
+                  },
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    backgroundColor:
+                        Color.fromARGB(255, 139, 138, 142).withOpacity(0.2),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
                     ),
-                  ],
-                ),
-                 SizedBox(height: 8.0),
-                SizedBox(
-                  height: 120.0,
-                  child: TextField(
-                    textAlign: TextAlign.center,
-                    decoration: InputDecoration(
-                      hintText: rightHint,
-                      hintStyle: TextStyle(
-                        fontSize: 16.0, 
-                        color: Colors.white.withOpacity(0.6)
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      contentPadding: EdgeInsets.symmetric(vertical: 60.0),
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SvgPicture.asset(
-                          rightIconPath,
-                          color: Color.fromARGB(255, 235, 231, 11),
-                          height: 16.0, // Adjust the height of the icon
-                          width: 16.0,
-                        ),
-                      ),
+                  ),
+                  child: Text(
+                    buttonLabel,
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 235, 231, 11),
                     ),
-                    style: TextStyle(color: Colors.white),
                   ),
                 ),
-              ],
+              ),
+              style: TextStyle(
+                color: Colors.white,
+              ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
+      ],
     );
   }
 }
