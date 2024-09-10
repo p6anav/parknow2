@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart'; // Import for SVG support
+
+// Import your pages
 import 'home/home.dart'; // Your Home page
 import 'servi/service.dart'; // Your Service page
 import 'joinus/joinus.dart'; // Your Join Us page
+import 'joinus/left.dart'; // Import LeftContainer
+import 'joinus/left2.dart'; // Import LeftContainer2
+import 'joinus/right.dart'; // Import RightContainer
 
 void main() {
   runApp(MyApp());
@@ -11,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, 
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Color.fromARGB(255, 37, 34, 34), // Set the background color of the Scaffold
         appBar: PreferredSize(
@@ -47,7 +53,6 @@ class _ContainerWithTabsState extends State<ContainerWithTabs> {
     return LayoutBuilder(
       builder: (context, constraints) {
         double screenWidth = constraints.maxWidth;
-        double screenHeight = constraints.maxHeight;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -83,7 +88,7 @@ class _ContainerWithTabsState extends State<ContainerWithTabs> {
                       Container(
                         height: 4.0,
                         width: 60.0, // Adjust the width as needed
-                        color: Color.fromARGB(255, 235, 231, 11),// Green bar color
+                        color: Color.fromARGB(255, 235, 231, 11), // Green bar color
                         margin: EdgeInsets.only(right: 0), // Adjust the left margin to move the bar to the left
                       ),
                     if (_currentTab == 'Join Us')
@@ -92,7 +97,7 @@ class _ContainerWithTabsState extends State<ContainerWithTabs> {
                       Container(
                         height: 4.0,
                         width: 60.0, // Adjust the width as needed
-                        color:  Color.fromARGB(255, 235, 231, 11), // Green bar color
+                        color: Color.fromARGB(255, 235, 231, 11), // Green bar color
                         margin: EdgeInsets.only(left: 250), // Adjust the left margin to move the bar to the left
                       ),
                   ],
@@ -100,7 +105,36 @@ class _ContainerWithTabsState extends State<ContainerWithTabs> {
               ],
             ),
             Expanded(
-              child: _buildContent(),
+              child: screenWidth < 600
+                  ? SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start, // Align the content to the start of the column
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(16.0),
+                            child: RightContainer(), // Display RightContainer
+                          ),
+                          SizedBox(height: 20.0), // Space between containers
+                          Visibility(
+                            visible: screenWidth >= 600,
+                            child: Column(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  child: LeftContainer(), // Display LeftContainer
+                                ),
+                                SizedBox(height: 20.0), // Space between containers
+                                Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  child: LeftContainer2(), // Display LeftContainer2
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : _buildContent(),
             ),
           ],
         );
@@ -171,4 +205,3 @@ class _ContainerWithTabsState extends State<ContainerWithTabs> {
     });
   }
 }
-
