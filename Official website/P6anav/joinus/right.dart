@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'dropdown.dart'; // Import the dropdowns.dart file
 
 class RightContainer extends StatefulWidget {
   @override
@@ -11,7 +12,6 @@ class _RightContainerState extends State<RightContainer> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _adminNameController = TextEditingController();
-  final TextEditingController _rolesController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _paymentController = TextEditingController();
@@ -23,12 +23,17 @@ class _RightContainerState extends State<RightContainer> {
   String? _selectedState;
   String? _selectedDistrict;
   String? _selectedCity;
+  String? _selectedRole; // For Roles dropdown
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(30.0),
       decoration: BoxDecoration(
+        border: Border.all(
+      color: Color.fromARGB(255, 141, 174, 8), // Border color
+      width: 1.0,         // Border width
+    ),
         color: Colors.black,
         borderRadius: BorderRadius.circular(25.0),
       ),
@@ -70,7 +75,7 @@ class _RightContainerState extends State<RightContainer> {
                   ),
                 ),
                 SizedBox(height: 24.0),
-                // Dropdown and Text Fields Rows
+                // Name and Phone Fields
                 _buildLabeledTextFieldsRow(
                   'Name',
                   'Enter your name',
@@ -82,6 +87,7 @@ class _RightContainerState extends State<RightContainer> {
                   _phoneController,
                   isSmallScreen,
                 ),
+                // Country and State Dropdowns
                 _buildDropdownTextFieldsRow(
                   'Country',
                   ['USA', 'Canada', 'Mexico'],
@@ -91,6 +97,7 @@ class _RightContainerState extends State<RightContainer> {
                   _selectedState,
                   isSmallScreen,
                 ),
+                // District and City Dropdowns
                 _buildDropdownTextFieldsRow(
                   'District',
                   ['District 1', 'District 2', 'District 3'],
@@ -100,17 +107,17 @@ class _RightContainerState extends State<RightContainer> {
                   _selectedCity,
                   isSmallScreen,
                 ),
-                _buildLabeledTextFieldsRow(
+                // Admin Name and Roles (Dropdown for Roles)
+                _buildLabeledTextFieldsRowWithDropdown(
                   'Admin Name',
                   'Enter your admin name',
                   'Roles',
-                  'Enter roles',
-                  'lib/assets/icons/person.svg',
-                  'lib/assets/icons/role.svg',
+                  ['Admin', 'Manager', 'User'], // Roles options
                   _adminNameController,
-                  _rolesController,
+                  _selectedRole,
                   isSmallScreen,
                 ),
+                // Email and Password Fields
                 _buildLabeledTextFieldsRow(
                   'Email*',
                   'Enter your email',
@@ -122,6 +129,7 @@ class _RightContainerState extends State<RightContainer> {
                   _passwordController,
                   isSmallScreen,
                 ),
+                // Payment and Property Name Fields
                 _buildLabeledTextFieldsRow(
                   'Payment/Hour',
                   'Enter payment',
@@ -133,6 +141,7 @@ class _RightContainerState extends State<RightContainer> {
                   _propertyNameController,
                   isSmallScreen,
                 ),
+                // Property Location Field with Buttons
                 _buildLabeledTextFieldsWithSeparateButtons(
                   'Property Location',
                   'Enter property location',
@@ -144,35 +153,35 @@ class _RightContainerState extends State<RightContainer> {
                   isSmallScreen,
                 ),
                 SizedBox(height: 20.0),
+                // Submit Button
                 Center(
-  child: Builder(
-    builder: (context) {
-      return ElevatedButton(
-        onPressed: () {
-          // Handle submit action
-        },
-        style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width < 600 ? 100.0 : 200.0, // Adjust padding based on screen width
-            vertical: 15.0,
-          ),
-          primary: Color.fromARGB(255, 235, 231, 11),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-        ),
-        child: Text(
-          'Submit',
-          style: TextStyle(
-            fontSize: 18.0,
-            color: Colors.black,
-          ),
-        ),
-      );
-    },
-  ),
-),
-
+                  child: Builder(
+                    builder: (context) {
+                      return ElevatedButton(
+                        onPressed: () {
+                          // Handle submit action
+                        },
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: MediaQuery.of(context).size.width < 600 ? 100.0 : 200.0,
+                            vertical: 15.0,
+                          ),
+                          primary: Color.fromARGB(255, 235, 231, 11),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                        ),
+                        child: Text(
+                          'Submit',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            color: Colors.black,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ],
             );
           },
@@ -180,8 +189,7 @@ class _RightContainerState extends State<RightContainer> {
       ),
     );
   }
-
-  Widget _buildLabeledTextFieldsRow(
+Widget _buildLabeledTextFieldsRow(
     String leftLabel,
     String leftHint,
     String rightLabel,
@@ -216,7 +224,59 @@ class _RightContainerState extends State<RightContainer> {
     }
   }
 
-  Widget _buildDropdownTextFieldsRow(
+  // Modified Row with Dropdown for Roles Field
+  Widget _buildLabeledTextFieldsRowWithDropdown(
+    String leftLabel,
+    String leftHint,
+    String rightLabel,
+    List<String> rightItems,
+    TextEditingController leftController,
+    String? rightValue,
+    bool isSmallScreen,
+  ) {
+    if (isSmallScreen) {
+      return Column(
+        children: [
+          _buildLabeledTextField(leftLabel, leftHint, 'lib/assets/icons/person.svg', leftController),
+          SizedBox(height: 12.0),
+          CustomDropdownField(
+            label: rightLabel,
+            items: ['Admin', 'User'], 
+            currentValue: rightValue,
+            onChanged: (value) {
+              setState(() {
+                _selectedRole = value;
+              });
+            },
+          ),
+        ],
+      );
+    } else {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: _buildLabeledTextField(leftLabel, leftHint, 'lib/assets/icons/person.svg', leftController),
+          ),
+          SizedBox(width: 12.0),
+          Expanded(
+            child: CustomDropdownField(
+              label: rightLabel,
+              items: ['Admin', 'User'], // Removed 'Manager'
+              currentValue: rightValue,
+              onChanged: (value) {
+                setState(() {
+                  _selectedRole = value;
+                });
+              },
+            ),
+          ),
+        ],
+      );
+    }
+  }
+
+   Widget _buildDropdownTextFieldsRow(
     String leftLabel,
     List<String> leftItems,
     String rightLabel,
