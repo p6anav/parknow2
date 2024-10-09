@@ -204,8 +204,10 @@ class NextContainer extends StatelessWidget {
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 235, 231, 11),
-                  onPrimary: const Color.fromARGB(255, 0, 0, 0),
+             // Background color
+                                  
+                   backgroundColor: Color.fromARGB(255, 235, 231, 11),
+                 foregroundColor: const Color.fromARGB(255, 0, 0, 0),
                   minimumSize: Size(double.infinity, buttonHeight),
                   padding: EdgeInsets.symmetric(vertical: 20.0),
                   shape: RoundedRectangleBorder(

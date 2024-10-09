@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dropdown.dart'; // Import the dropdowns.dart file
+import 'popup.dart';
+import 'location_popup.dart';
 
 class RightContainer extends StatefulWidget {
   @override
@@ -16,7 +18,8 @@ class _RightContainerState extends State<RightContainer> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _paymentController = TextEditingController();
   final TextEditingController _propertyNameController = TextEditingController();
-  final TextEditingController _propertyLocationController = TextEditingController();
+  final TextEditingController _propertyLocationController =
+      TextEditingController();
 
   // Dropdown values
   String? _selectedCountry;
@@ -31,9 +34,9 @@ class _RightContainerState extends State<RightContainer> {
       padding: const EdgeInsets.all(30.0),
       decoration: BoxDecoration(
         border: Border.all(
-      color: Color.fromARGB(255, 141, 174, 8), // Border color
-      width: 1.0,         // Border width
-    ),
+          color: Color.fromARGB(255, 141, 174, 8), // Border color
+          width: 1.0, // Border width
+        ),
         color: Colors.black,
         borderRadius: BorderRadius.circular(25.0),
       ),
@@ -112,7 +115,7 @@ class _RightContainerState extends State<RightContainer> {
                   'Admin Name',
                   'Enter your admin name',
                   'Roles',
-                  ['Admin', 'Manager', 'User'], // Roles options
+                  ['Admin', 'User'], // Roles options
                   _adminNameController,
                   _selectedRole,
                   isSmallScreen,
@@ -152,21 +155,30 @@ class _RightContainerState extends State<RightContainer> {
                   _propertyLocationController,
                   isSmallScreen,
                 ),
+                
                 SizedBox(height: 20.0),
                 // Submit Button
+                
                 Center(
                   child: Builder(
                     builder: (context) {
                       return ElevatedButton(
                         onPressed: () {
-                          // Handle submit action
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return PaymentPopup(); // This will show the payment popup
+                            },
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           padding: EdgeInsets.symmetric(
-                            horizontal: MediaQuery.of(context).size.width < 600 ? 100.0 : 200.0,
+                            horizontal: MediaQuery.of(context).size.width < 600
+                                ? 100.0
+                                : 200.0,
                             vertical: 15.0,
                           ),
-                          primary: Color.fromARGB(255, 235, 231, 11),
+                          backgroundColor: Color.fromARGB(255, 235, 231, 11),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0),
                           ),
@@ -182,6 +194,7 @@ class _RightContainerState extends State<RightContainer> {
                     },
                   ),
                 ),
+             
               ],
             );
           },
@@ -189,7 +202,8 @@ class _RightContainerState extends State<RightContainer> {
       ),
     );
   }
-Widget _buildLabeledTextFieldsRow(
+
+  Widget _buildLabeledTextFieldsRow(
     String leftLabel,
     String leftHint,
     String rightLabel,
@@ -203,9 +217,11 @@ Widget _buildLabeledTextFieldsRow(
     if (isSmallScreen) {
       return Column(
         children: [
-          _buildLabeledTextField(leftLabel, leftHint, leftIconPath, leftController),
+          _buildLabeledTextField(
+              leftLabel, leftHint, leftIconPath, leftController),
           SizedBox(height: 12.0),
-          _buildLabeledTextField(rightLabel, rightHint, rightIconPath, rightController),
+          _buildLabeledTextField(
+              rightLabel, rightHint, rightIconPath, rightController),
         ],
       );
     } else {
@@ -213,11 +229,13 @@ Widget _buildLabeledTextFieldsRow(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: _buildLabeledTextField(leftLabel, leftHint, leftIconPath, leftController),
+            child: _buildLabeledTextField(
+                leftLabel, leftHint, leftIconPath, leftController),
           ),
           SizedBox(width: 12.0),
           Expanded(
-            child: _buildLabeledTextField(rightLabel, rightHint, rightIconPath, rightController),
+            child: _buildLabeledTextField(
+                rightLabel, rightHint, rightIconPath, rightController),
           ),
         ],
       );
@@ -237,11 +255,12 @@ Widget _buildLabeledTextFieldsRow(
     if (isSmallScreen) {
       return Column(
         children: [
-          _buildLabeledTextField(leftLabel, leftHint, 'lib/assets/icons/person.svg', leftController),
+          _buildLabeledTextField(leftLabel, leftHint,
+              'lib/assets/icons/person.svg', leftController),
           SizedBox(height: 12.0),
           CustomDropdownField(
             label: rightLabel,
-            items: ['Admin', 'User'], 
+            items: ['Admin', 'User'],
             currentValue: rightValue,
             onChanged: (value) {
               setState(() {
@@ -256,7 +275,8 @@ Widget _buildLabeledTextFieldsRow(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: _buildLabeledTextField(leftLabel, leftHint, 'lib/assets/icons/person.svg', leftController),
+            child: _buildLabeledTextField(leftLabel, leftHint,
+                'lib/assets/icons/person.svg', leftController),
           ),
           SizedBox(width: 12.0),
           Expanded(
@@ -276,7 +296,7 @@ Widget _buildLabeledTextFieldsRow(
     }
   }
 
-   Widget _buildDropdownTextFieldsRow(
+  Widget _buildDropdownTextFieldsRow(
     String leftLabel,
     List<String> leftItems,
     String rightLabel,
@@ -306,7 +326,8 @@ Widget _buildLabeledTextFieldsRow(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: _buildDropdownField(leftLabel, leftItems, leftValue, (value) {
+            child:
+                _buildDropdownField(leftLabel, leftItems, leftValue, (value) {
               setState(() {
                 _selectedCountry = value;
               });
@@ -314,7 +335,8 @@ Widget _buildLabeledTextFieldsRow(
           ),
           SizedBox(width: 12.0),
           Expanded(
-            child: _buildDropdownField(rightLabel, rightItems, rightValue, (value) {
+            child: _buildDropdownField(rightLabel, rightItems, rightValue,
+                (value) {
               setState(() {
                 _selectedState = value;
               });
@@ -326,45 +348,45 @@ Widget _buildLabeledTextFieldsRow(
   }
 
   Widget _buildDropdownField(
-  String label,
-  List<String> items,
-  String? currentValue,
-  ValueChanged<String?> onChanged,
-) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(label, style: TextStyle(fontSize: 16.0, color: Colors.white)),
-      SizedBox(height: 8.0),
-      Container(
-        decoration: BoxDecoration(
-          color: Colors.grey[800],
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        child: DropdownButtonFormField<String>(
-          value: items.contains(currentValue) ? currentValue : null,
-          items: items.map((String item) {
-            return DropdownMenuItem<String>(
-              value: item,
-              child: Text(item, style: TextStyle(color: Colors.white)),
-            );
-          }).toList(),
-          onChanged: onChanged,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.0),
-              borderSide: BorderSide.none,
-            ),
-            filled: true,
-            fillColor: Color.fromARGB(34, 165, 164, 164),
+    String label,
+    List<String> items,
+    String? currentValue,
+    ValueChanged<String?> onChanged,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label, style: TextStyle(fontSize: 16.0, color: Colors.white)),
+        SizedBox(height: 8.0),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.grey[800],
+            borderRadius: BorderRadius.circular(12.0),
           ),
-          dropdownColor: const Color.fromARGB(255, 47, 45, 45),
-          style: TextStyle(color: Colors.white),
+          child: DropdownButtonFormField<String>(
+            value: items.contains(currentValue) ? currentValue : null,
+            items: items.map((String item) {
+              return DropdownMenuItem<String>(
+                value: item,
+                child: Text(item, style: TextStyle(color: Colors.white)),
+              );
+            }).toList(),
+            onChanged: onChanged,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12.0),
+                borderSide: BorderSide.none,
+              ),
+              filled: true,
+              fillColor: Color.fromARGB(34, 165, 164, 164),
+            ),
+            dropdownColor: const Color.fromARGB(255, 47, 45, 45),
+            style: TextStyle(color: Colors.white),
+          ),
         ),
-      ),
-    ],
-  );
-}
+      ],
+    );
+  }
 
   Widget _buildLabeledTextFieldsWithSeparateButtons(
     String leftLabel,
@@ -379,8 +401,8 @@ Widget _buildLabeledTextFieldsRow(
     if (isSmallScreen) {
       return Column(
         children: [
-          _buildLabeledTextFieldWithSeparateButtons(
-              leftLabel, leftHint, leftIconPath, leftButtonLabel, leftController),
+          _buildLabeledTextFieldWithSeparateButtons(leftLabel, leftHint,
+              leftIconPath, leftButtonLabel, leftController),
           SizedBox(height: 12.0),
           _buildLabeledTextFieldWithSeparateButtons(
               'Upload', '', rightIconPath, rightButtonLabel, null),
@@ -391,8 +413,8 @@ Widget _buildLabeledTextFieldsRow(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: _buildLabeledTextFieldWithSeparateButtons(
-                leftLabel, leftHint, leftIconPath, leftButtonLabel, leftController),
+            child: _buildLabeledTextFieldWithSeparateButtons(leftLabel,
+                leftHint, leftIconPath, leftButtonLabel, leftController),
           ),
           SizedBox(width: 12.0),
           Expanded(
@@ -404,13 +426,8 @@ Widget _buildLabeledTextFieldsRow(
     }
   }
 
-  Widget _buildLabeledTextFieldWithSeparateButtons(
-    String label, 
-    String hint, 
-    String iconPath, 
-    String buttonLabel, 
-    TextEditingController? controller
-  ) {
+  Widget _buildLabeledTextFieldWithSeparateButtons(String label, String hint,
+      String iconPath, String buttonLabel, TextEditingController? controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -429,7 +446,8 @@ Widget _buildLabeledTextFieldsRow(
               decoration: InputDecoration(
                 hintText: hint,
                 hintStyle: TextStyle(
-                  color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.6),
+                  color:
+                      const Color.fromARGB(255, 255, 255, 255).withOpacity(0.6),
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.0),
@@ -443,16 +461,16 @@ Widget _buildLabeledTextFieldsRow(
                 ),
                 suffixIcon: TextButton(
                   onPressed: () {
-                    // Handle button action here
                     if (buttonLabel == 'Location') {
-                      // Handle location logic
+                      LocationPopup.show(context); // Call the separated popup here
                     } else if (buttonLabel == 'Upload') {
-                      // Handle upload logic
+                      // Handle upload logic here
                     }
                   },
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.symmetric(horizontal: 10.0),
-                    backgroundColor: Color.fromARGB(255, 139, 138, 142).withOpacity(0.2),
+                    backgroundColor:
+                        Color.fromARGB(255, 139, 138, 142).withOpacity(0.2),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.0),
                     ),
@@ -474,13 +492,9 @@ Widget _buildLabeledTextFieldsRow(
       ],
     );
   }
-
-  Widget _buildLabeledTextField(
-    String label, 
-    String hint, 
-    String iconPath, 
-    TextEditingController controller
-  ) {
+}     
+  Widget _buildLabeledTextField(String label, String hint, String iconPath,
+      TextEditingController controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -507,4 +521,4 @@ Widget _buildLabeledTextFieldsRow(
       ],
     );
   }
-}
+

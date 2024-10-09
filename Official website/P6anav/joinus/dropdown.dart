@@ -150,8 +150,8 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
                                                   },
                                                   child: Text('Close'),
                                                   style: ElevatedButton.styleFrom(
-                                                    primary: Colors.green, // Background color
-                                                    onPrimary: Colors.white, // Text color
+                                                    backgroundColor: Colors.green, // Background color
+                                                    foregroundColor: Colors.white, // Text color
                                                   ),
                                                 ),
                                               ),
