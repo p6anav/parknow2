@@ -32,6 +32,13 @@ dependencies:
     sdk: flutter
   flutter_svg: ^2.0.7
   file_picker: ^5.2.4
+  flutter_map: ^7.0.2     # Map package
+  latlong2: ^0.9.1         # LatLng support
+  http: ^1.2.2            # For making HTTP requests
+  flutter_webview_plugin: ^0.4.0
+  geolocator: 
+  duration: 
+  intl: 
 
 
   # The following adds the Cupertino Icons font to your application.
