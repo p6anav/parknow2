@@ -16,7 +16,7 @@ class Footer extends StatelessWidget {
         children: [
           // Company Information
           Text(
-            '© 2024 Your Company Name. All rights reserved.',
+            '© 2024 Autpo Spaze. All rights reserved.',
             style: TextStyle(
               color: Colors.white,
               fontSize: 16,
