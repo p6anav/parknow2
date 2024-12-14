@@ -1,4 +1,5 @@
 #include <SoftwareSerial.h>
+#include <Wire.h>
 
 #define DEBUG true
 
@@ -41,11 +42,13 @@ void setup() {
   delay(1000);
 
   Serial.println("Server Ready");
+  initCamera();
 }
 
 void loop() {
   int ldrStatus = getSensorData();
   String data = "Sensor Value: " + String(ldrStatus);  // Create data string
+  captureAndSendImage();
 sendHttpPost("192.168.1.5","/updateSensor",9000,"sensorData="+data);
 
 }
@@ -78,11 +81,12 @@ void sendHttpPost(String server, String resource, int port, String data) {
 
 int getSensorData() {
   int ldrStatus = analogRead(ldrPin);  
+    Serial.print(ldrStatus);
 
   if (ldrStatus <= 80) {
-    digitalWrite(ledPin, LOW);  // Turn LED on
+   // digitalWrite(ledPin, LOW);  // Turn LED on
   } else {
-    digitalWrite(ledPin, HIGH); // Turn LED off
+    //digitalWrite(ledPin, HIGH); // Turn LED off
   }
   return ldrStatus;
 }
@@ -105,4 +109,22 @@ String sendCommand(String command, const int timeout, boolean debug) {
     Serial.print(response);
   }
   return response;
+}
+
+void initCamera() {
+  Wire.beginTransmission(0x42); // OV7670 default I2C address
+  // Add specific OV7670 initialization commands here
+  Wire.endTransmission();
+  Serial.println("Camera initialized.");
+}
+
+void captureAndSendImage() {
+  Serial.println("START_IMAGE"); // Marker to indicate image start
+
+  for (int i = 0; i < 1024; i++) { // Example loop (simulate image data)
+    Serial.write((byte)(i % 256)); // Send dummy data byte by byte
+  }
+
+  Serial.println("END_IMAGE"); // Marker to indicate image end
+  Serial.println("Image sent.");
 }
