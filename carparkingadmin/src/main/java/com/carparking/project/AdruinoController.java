@@ -16,6 +16,12 @@ public class AdruinoController {
 
     @PostMapping("/updateSensor")
     public void updateSensorData(@RequestParam Map<String, String> requestParams){
+        try {
+            imageService.getImage();
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
         System.out.println("I am in"+requestParams);
     }
 }
