@@ -73,10 +73,6 @@ public class ImageService {
     }
 
 
-    public static void main(String[] args){
-        getImage();
-    }
-
 
     public static String getVehicleNumber() {
        // getImage();

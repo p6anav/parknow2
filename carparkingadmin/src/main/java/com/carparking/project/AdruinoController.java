@@ -17,6 +17,6 @@ public class AdruinoController {
     @PostMapping("/updateSensor")
     public void updateSensorData(@RequestParam Map<String, String> requestParams){
         System.out.println("I am in"+requestParams);
-        imageService.getVehicleNumber();
+        String vehicleno = imageService.getVehicleNumber();
     }
 }
