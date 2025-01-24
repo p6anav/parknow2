@@ -1,9 +1,11 @@
 package com.carparking.project.service;
-
+import java.io.InputStream;
+import java.io.FileOutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import com.carparking.project.domain.OcrResponse;
 import com.carparking.project.domain.ParsedResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fazecast.jSerialComm.SerialPort;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -16,7 +18,6 @@ import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
@@ -30,61 +31,55 @@ public class ImageService {
     private static final CloseableHttpClient httpClient = HttpClients.createDefault();  // Reuse HTTP client
 
 
-    public  void getImage(){
+    public static void getImage(){
+        try {
+            // ESP32-CAM snapshot URL
+            String snapshotUrl = "http://192.168.1.10/capture";
 
-        SerialPort port = SerialPort.getCommPort("/dev/tty.usbmodem1101"); // Example port name
-        port.setBaudRate(115200);
+            // Create URL object
+            URL url = new URL(snapshotUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            int responseCode = connection.getResponseCode();
+            if (responseCode != 200) {
+                System.out.println("Failed to connect to the ESP32-CAM. HTTP Response: " + responseCode);
+                return;
+            }
+            // Read the input stream
+            InputStream inputStream = connection.getInputStream();
+            String userHome = System.getProperty("user.home");
+            String documentsPath = userHome + File.separator + "Documents";
+            File outputFile = new File(documentsPath, "snapshot.jpg");
 
-        if (!port.openPort()) {
-            System.out.println("Failed to open port.");
-            return;
-        }
-
-        System.out.println("Port opened successfully.");
-
-        try (FileOutputStream fileOutput = new FileOutputStream("image.raw")) {
-            byte[] buffer = new byte[1024];
+            // Save image to a file
+            FileOutputStream outputStream = new FileOutputStream(outputFile);
+            byte[] buffer = new byte[8128];
             int bytesRead;
-            boolean capturing = false;
-
-            while (true) {
-                if ((bytesRead = port.readBytes(buffer, buffer.length)) > 0) {
-                    String data = new String(buffer, 0, bytesRead);
-                    System.out.println("Receiving"+data);
-
-                    // Start and end markers
-                    if (data.contains("START_IMAGE")) {
-                        capturing = true;
-                        System.out.println("Receiving image...");
-                        continue;
-                    }
-
-                    if (data.contains("END_IMAGE")) {
-                        capturing = false;
-                        System.out.println("Image received.");
-                        break;
-                    }
-
-                    // Save raw image data
-                    if (capturing) {
-                        fileOutput.write(buffer, 0, bytesRead);
-                    }
-                }
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            port.closePort();
-            System.out.println("Port closed.");
-        }
+            // Close streams
+            inputStream.close();
+            outputStream.close();
+            connection.disconnect();
 
-        // Optionally convert the raw data to a viewable format
-        System.out.println("Image saved as image.raw.");
+            System.out.println("Snapshot saved as snapshot.jpg");
+
+    } catch (IndexOutOfBoundsException | IOException e) {
+        System.out.println("Index out of bounds: " + e.getMessage());
+        e.printStackTrace();
+    }
     }
 
 
-    public  String getVehicleNumber() {
+    public static void main(String[] args){
+        getImage();
+    }
+
+
+    public static String getVehicleNumber() {
+       // getImage();
         File imageFile = new File("/Users/abhi/Documents/GitHub/parknow2/carparkingadmin/src/main/resources/14inch-3mm-vehicle-number-plate.jpg");
 
         // Avoid creating new HTTP client in every request
