@@ -10,24 +10,50 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="login")
-public class User {
+public class Login {
 
     @Id
     private String email;
 
     private String password;
 
+    @Column(name="active")
+    private String active;
+
     @Column(name="rolename")
     private String roleName;
+    @Column(name="remarks")
+    private String remarks;
 
-
-    public User(){
+    public Login(){
 
     }
-    public User(UserDto userDto){
+
+    public Login(String active) {
+    }
+
+    public Login(UserDto userDto){
         this.email = userDto.getEmail();
         this.password = userDto.getPassword();
         this.roleName = userDto.getRoleName();
+        this.active = userDto.getActive();
+
+    }
+
+    public String getActive() {
+        return active;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
     }
 
     public String getUserName() {

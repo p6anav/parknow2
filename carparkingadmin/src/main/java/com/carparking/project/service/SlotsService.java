@@ -3,6 +3,7 @@ package com.carparking.project.service;
 import com.carparking.project.domain.FloorSlotDto;
 import com.carparking.project.domain.SlotsDto;
 import com.carparking.project.entities.Slots;
+import com.carparking.project.repository.LoginRepository;
 import com.carparking.project.repository.RatesRepository;
 import com.carparking.project.repository.SlotsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class SlotsService {
     @Autowired
     LoginService loginService;
 
+    @Autowired
+    LoginRepository loginRepository;
     @Autowired
     RatesService ratesService;
 
@@ -53,5 +56,10 @@ public class SlotsService {
     private Stream<Slots> createSlots(SlotsDto slotsDto, FloorSlotDto floorSlotDto){
        return floorSlotDto.getSlotNumber().stream().map(s->new Slots(slotsDto,s,floorSlotDto.getFloor()) );
     }
+
+    public String getActiveUser(){
+        return loginRepository.getActiveUser();
+    }
+
 
 }

@@ -1,12 +1,13 @@
 package com.carparking.project.service;
 
 import com.carparking.project.domain.UserDto;
-import com.carparking.project.entities.User;
+import com.carparking.project.entities.Login;
 import com.carparking.project.repository.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class LoginService {
@@ -19,21 +20,28 @@ public class LoginService {
 
 
     public String login(UserDto userDto) throws Exception {
-        User user =  loginRepository.findByEmailAndPassword(userDto.getEmail(),userDto.getPassword());
-        if(Objects.nonNull(user)){
-            return "User Is Valid";
+        Login login =  loginRepository.findByEmailAndPassword(userDto.getEmail(),userDto.getPassword());
+        if(Objects.nonNull(login)){
+            login.setActive("ACTIVE");
+            loginRepository.save(login);
+            return "Login Is Valid";
         }
         else{
             throw new Exception("Invalid Credential");
         }
     }
 
+    public void updateStatus(String errorcode,String email){
+      Optional<Login> login =  loginRepository.findById(email);
+      login.get().setRemarks(errorcode);
+      loginRepository.save(login.get());
+    }
     public String signUp(UserDto userDto, String ADMIN_USER) throws Exception {
         userDto.setRoleName(ADMIN_USER);
-        User user = loginRepository.save(new User(userDto));
-        if(Objects.nonNull(user)){
-            emailService.sendEmail(user);
-            return "Admin User Is Created";
+        Login login = loginRepository.save(new Login(userDto));
+        if(Objects.nonNull(login)){
+            emailService.sendEmail(login);
+            return "Admin Login Is Created";
         }
         else{
             throw new Exception("Operation Failed");
@@ -41,4 +49,10 @@ public class LoginService {
     }
 
 
+    public String logout(String emailid){
+  Optional<Login> login = loginRepository.findById(emailid);
+  login.get().setActive("");
+        loginRepository.save(login.get());
+  return "logout succesfull";
+    }
 }

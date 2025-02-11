@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "slots")
-public class Slots {
+public class Slots implements Comparable<Slots>{
 
     @Id
     private String slotNumber;
@@ -135,5 +135,10 @@ public class Slots {
                 ", googleLocation='" + googleLocation + '\'' +
                 ", adminName='" + adminName + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Slots other) {
+        return this.slotNumber.compareTo(other.slotNumber); // Ascending order
     }
 }

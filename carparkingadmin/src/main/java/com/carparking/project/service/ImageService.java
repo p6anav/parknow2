@@ -5,6 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import com.carparking.project.domain.OcrResponse;
 import com.carparking.project.domain.ParsedResult;
+import com.carparking.project.helper.SlotsHelper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -15,6 +16,7 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -24,17 +26,19 @@ import java.nio.charset.StandardCharsets;
 @Service
 public class ImageService {
 
+    @Autowired
+    EmailService emailService;
+
     private static final String API_KEY = "helloworld";
     private static final String API_URL = "https://api.ocr.space/parse/image";
     private static final ObjectMapper objectMapper = new ObjectMapper();  // Single ObjectMapper instance
 
     private static final CloseableHttpClient httpClient = HttpClients.createDefault();  // Reuse HTTP client
 
-
     public static void getImage(){
         try {
             // ESP32-CAM snapshot URL
-            String snapshotUrl = "http://192.168.1.10/capture";
+            String snapshotUrl = "http://192.168.1.12/capture";
 
             // Create URL object
             URL url = new URL(snapshotUrl);
@@ -72,11 +76,11 @@ public class ImageService {
     }
     }
 
-
-
     public static String getVehicleNumber() {
        // getImage();
-        File imageFile = new File("/Users/abhi/Documents/GitHub/parknow2/carparkingadmin/src/main/resources/14inch-3mm-vehicle-number-plate.jpg");
+        String userHome = System.getProperty("user.home");
+        String documentsPath = userHome + File.separator + "Documents";
+        File imageFile = new File(documentsPath,"snapshot.jpg");
 
         // Avoid creating new HTTP client in every request
         try {

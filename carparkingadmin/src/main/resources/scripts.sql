@@ -1,6 +1,6 @@
 
 CREATE TABLE profile (
-    vehicle_number BIGINT PRIMARY KEY,      -- Vehicle number as primary key
+    vehicle_number VARCHAR(255) PRIMARY KEY,      -- Vehicle number as primary key
     booking_date DATE,
 	parking_stat_time DATE,-- Date of booking
     user_email_id VARCHAR(255),             -- User email ID as a string
@@ -49,3 +49,9 @@ CREATE TABLE rates (
        charge INT
 
 );
+
+ALTER TABLE login
+ADD COLUMN active VARCHAR(10) DEFAULT 'ACTIVE' NOT NULL;
+
+
+

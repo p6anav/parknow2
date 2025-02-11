@@ -1,6 +1,7 @@
 package com.carparking.project.entities;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -8,9 +9,9 @@ import java.util.Date;
 public class Profile {
 
     @Id
-    private Long vehicleNumber;
+    private String vehicleNumber;
 
-    private Date bookingDate;
+    private LocalDateTime bookingDate;
 
     private String userEmailId;
 
@@ -24,9 +25,12 @@ public class Profile {
 
     private String roleName;
 
+    public Profile(){
+
+    }
 
     // Getters and Setters
-    public Profile(Long vehicleNumber, Date bookingDate, String userEmailId, Boolean paidStatus, String allocatedSlotNumber, String bookingSource, Integer durationOfAllocation, String roleName) {
+    public Profile(String vehicleNumber, LocalDateTime bookingDate, String userEmailId, Boolean paidStatus, String allocatedSlotNumber, String bookingSource, Integer durationOfAllocation, String roleName) {
         this.vehicleNumber = vehicleNumber;
         this.bookingDate = bookingDate;
         this.userEmailId = userEmailId;
@@ -46,19 +50,19 @@ public class Profile {
         this.roleName = roleName;
     }
 
-    public Long getVehicleNumber() {
+    public String getVehicleNumber() {
         return vehicleNumber;
     }
 
-    public void setVehicleNumber(Long vehicleNumber) {
+    public void setVehicleNumber(String vehicleNumber) {
         this.vehicleNumber = vehicleNumber;
     }
 
-    public Date getBookingDate() {
+    public LocalDateTime getBookingDate() {
         return bookingDate;
     }
 
-    public void setBookingDate(Date bookingDate) {
+    public void setBookingDate(LocalDateTime bookingDate) {
         this.bookingDate = bookingDate;
     }
 
