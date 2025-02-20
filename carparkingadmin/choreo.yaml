@@ -1,0 +1,7 @@
+schemaVersion: 1.0 
+ # Example endpoint configuration
+endpoints:
+- name: carparking-service
+  service:
+     port: 9000
+  type: REST

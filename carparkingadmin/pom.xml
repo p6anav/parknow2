@@ -30,6 +30,13 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>com.google.firebase</groupId>
+			<artifactId>firebase-admin</artifactId>
+			<version>6.10.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.firebase/firebase-firestore -->
+
+		<dependency>
 			<groupId>com.google.api-client</groupId>
 			<artifactId>google-api-client</artifactId>
 
@@ -40,6 +47,12 @@
 			<artifactId>tomcat-catalina</artifactId>
 			<version>9.0.80</version>  <!-- Use the same version as your Tomcat -->
 			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.cloud/google-cloud-firestore -->
+		<dependency>
+			<groupId>com.google.cloud</groupId>
+			<artifactId>google-cloud-firestore</artifactId>
+			<version>3.30.7</version>
 		</dependency>
 
 		<!-- Ensure compatible Servlet API -->
@@ -65,6 +78,13 @@
 			<groupId>com.google.auth</groupId>
 			<artifactId>google-auth-library-oauth2-http</artifactId>
 			<version>0.22.0</version>
+		</dependency>
+
+		<!-- SQLite Driver -->
+		<dependency>
+			<groupId>org.xerial</groupId>
+			<artifactId>sqlite-jdbc</artifactId>
+			<version>3.43.2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fazecast</groupId>
@@ -132,8 +152,15 @@
 			<classifier>standalone</classifier>
 		</dependency>
 	</dependencies>
+	<repositories>
+	<repository>
+		<id>sqlite-cloud-repo</id>
+		<url>https://repo.sqlitecloud.io/</url>  <!-- Use actual repo URL -->
+	</repository>
+	</repositories>
 
 	<build>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
