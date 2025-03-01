@@ -13,12 +13,24 @@ public class EmailService {
     private JavaMailSender mailSender;
 
 
-    public void sendEmail(Login login){
+    public void sendEmailAdmin(Login login){
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("007parkit@gmail.com");  // Replace with your email
         message.setTo(login.getEmail());
         message.setSubject("Welcome Admin:Please find your credential");
+        message.setText("Your UserName is"+ login.getEmail()+"Your Passsword is "+ login.getPassWord());
+
+        mailSender.send(message);
+
+    }
+
+    public void sendEmailUser(Login login){
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("007parkit@gmail.com");  // Replace with your email
+        message.setTo(login.getEmail());
+        message.setSubject("Welcome User:Please find your credential");
         message.setText("Your UserName is"+ login.getEmail()+"Your Passsword is "+ login.getPassWord());
 
         mailSender.send(message);

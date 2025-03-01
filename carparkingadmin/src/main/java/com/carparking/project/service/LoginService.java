@@ -39,9 +39,13 @@ public class LoginService {
     public String signUp(UserDto userDto, String ADMIN_USER) throws Exception {
         userDto.setRoleName(ADMIN_USER);
         Login login = loginRepository.save(new Login(userDto));
-        if(Objects.nonNull(login)){
-            emailService.sendEmail(login);
+        if(Objects.nonNull(login)&& "ADMIN_USER".equals(ADMIN_USER)){
+            emailService.sendEmailAdmin(login);
             return "Admin Login Is Created";
+        }
+        if(Objects.nonNull(login)&& "USER".equals(ADMIN_USER)){
+            emailService.sendEmailUser(login);
+            return "User Login Created";
         }
         else{
             throw new Exception("Operation Failed");

@@ -31,4 +31,8 @@ public class RatesService {
         List<Rates> rates = ratesDtoList.stream().map(ratesDto -> new Rates(ratesDto,email)).collect(Collectors.toList());
         return rates;
     }
+
+    public List<Rates>getRatesAll(String emailid){
+    return ratesRepository.getAllRates(emailid);
+    }
 }

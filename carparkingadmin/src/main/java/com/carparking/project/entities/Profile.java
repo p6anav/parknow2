@@ -9,11 +9,14 @@ import java.util.Date;
 public class Profile {
 
     @Id
+    @Column(name = "vehicle_number", unique = true)
     private String vehicleNumber;
 
     private LocalDateTime bookingDate;
 
     private String userEmailId;
+
+    private String userName;
 
     private Boolean paidStatus;
 
@@ -22,6 +25,21 @@ public class Profile {
     private String bookingSource;
 
     private Integer durationOfAllocation;
+
+    @Override
+    public String toString() {
+        return "Profile{" +
+                "vehicleNumber='" + vehicleNumber + '\'' +
+                ", bookingDate=" + bookingDate +
+                ", userEmailId='" + userEmailId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", paidStatus=" + paidStatus +
+                ", allocatedSlotNumber='" + allocatedSlotNumber + '\'' +
+                ", bookingSource='" + bookingSource + '\'' +
+                ", durationOfAllocation=" + durationOfAllocation +
+                ", roleName='" + roleName + '\'' +
+                '}';
+    }
 
     private String roleName;
 
@@ -60,6 +78,14 @@ public class Profile {
 
     public LocalDateTime getBookingDate() {
         return bookingDate;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public void setBookingDate(LocalDateTime bookingDate) {
