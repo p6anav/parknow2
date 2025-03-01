@@ -10,7 +10,7 @@ public interface LoginRepository extends CrudRepository<Login, String> {
 
     public Login findByEmailAndPassword(String email, String passWord);
 
-    @Query(value = "SELECT email FROM login WHERE active = 'ACTIVE'", nativeQuery = true)
+    @Query(value = "SELECT email FROM login WHERE active = 'ADMIN_ACTIVE'", nativeQuery = true)
     public String getActiveUser();
 
 

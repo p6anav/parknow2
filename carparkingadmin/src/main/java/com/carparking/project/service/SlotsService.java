@@ -3,6 +3,8 @@ package com.carparking.project.service;
 import com.carparking.project.domain.FloorSlotDto;
 import com.carparking.project.domain.SlotsDto;
 import com.carparking.project.entities.Slots;
+import com.carparking.project.helper.SheetIdHelper;
+import com.carparking.project.helper.SlotsHelper;
 import com.carparking.project.repository.LoginRepository;
 import com.carparking.project.repository.RatesRepository;
 import com.carparking.project.repository.SlotsRepository;
@@ -16,6 +18,7 @@ import java.util.stream.Stream;
 
 @Service
 public class SlotsService {
+
 
     @Autowired
     SlotsRepository slotsRepository;
@@ -46,6 +49,9 @@ public class SlotsService {
 
     private List<Slots> getSlots(SlotsDto slotsDto) {
         List<Slots> slots = slotsDto.getFloorSlotDto().stream().flatMap(fs->createSlots(slotsDto,fs)).collect(Collectors.toUnmodifiableList());
+        for(String sheet: SheetIdHelper.sheeets) {
+            slots.stream().forEach(s -> s.setSheetId(sheet));
+        }
         return slots;
     }
 

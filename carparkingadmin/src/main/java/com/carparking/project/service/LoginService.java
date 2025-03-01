@@ -21,14 +21,19 @@ public class LoginService {
 
     public String login(UserDto userDto) throws Exception {
         Login login =  loginRepository.findByEmailAndPassword(userDto.getEmail(),userDto.getPassword());
-        if(Objects.nonNull(login)){
-            login.setActive("ACTIVE");
-            loginRepository.save(login);
-            return "Login Is Valid";
+        if(Objects.nonNull(login)&&login.getRoleName().equals("ADMIN")) {
+            login.setActive("ADMIN_ACTIVE");
+        }
+            else if(login.getRoleName().equals("USER")){
+            login.setActive("USER_ACTIVE");
         }
         else{
             throw new Exception("Invalid Credential");
         }
+            loginRepository.save(login);
+            return "Login Is Valid";
+        }
+
     }
 
     public void updateStatus(String errorcode,String email){

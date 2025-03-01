@@ -34,6 +34,7 @@ public class SlotsHelper {
                 return null;
             }
 
+
             Slots slot = availableSlots.poll(); // Get the nearest available slot
             slotToCar.put(slot, vehiclenum);
             return slot;
