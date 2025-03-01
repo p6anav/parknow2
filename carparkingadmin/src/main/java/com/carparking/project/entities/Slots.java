@@ -21,6 +21,7 @@ public class Slots implements Comparable<Slots>{
     private boolean slotAvailability;
     private String googleLocation;
     private String adminName;
+    private String sheetId;
 
     // Default constructor
     public Slots() {}
@@ -37,6 +38,7 @@ public class Slots implements Comparable<Slots>{
         this.slotAvailability = slotsDto.isSlotAvailability();
         this.googleLocation = slotsDto.getGoogleLocation();
         this.adminName = slotsDto.getAdminName();
+        this.sheetId = slotsDto.getSheetId();
     }
 
     // Getters and Setters
@@ -96,6 +98,14 @@ public class Slots implements Comparable<Slots>{
         this.country = country;
     }
 
+    public String getSheetId() {
+        return sheetId;
+    }
+
+    public void setSheetId(String sheetId) {
+        this.sheetId = sheetId;
+    }
+
     public boolean isSlotAvailability() {
         return slotAvailability;
     }
@@ -120,10 +130,9 @@ public class Slots implements Comparable<Slots>{
         this.adminName = adminName;
     }
 
-    // toString method for easy debugging
     @Override
     public String toString() {
-        return "Slot{" +
+        return "Slots{" +
                 "slotNumber='" + slotNumber + '\'' +
                 ", floor='" + floor + '\'' +
                 ", propertyName='" + propertyName + '\'' +
@@ -134,6 +143,7 @@ public class Slots implements Comparable<Slots>{
                 ", slotAvailability=" + slotAvailability +
                 ", googleLocation='" + googleLocation + '\'' +
                 ", adminName='" + adminName + '\'' +
+                ", sheetId='" + sheetId + '\'' +
                 '}';
     }
 

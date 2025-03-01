@@ -75,7 +75,7 @@ LoginService loginService;
             UserDto userDto =new UserDto();
             userDto.setEmail(emailinfo);
             userDto.setRoleName("USER");
-            userDto.setPassword(String.valueOf(Math.random())+"abc");
+            userDto.setPassword(String.valueOf(Math.random())+"xxxx");
             userDto.setActive("");
             loginService.signUp(userDto,"USER");
         }

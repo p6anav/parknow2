@@ -18,7 +18,7 @@ public class SlotsDto {
     private boolean slotAvailability;
     private String googleLocation;
     private String adminName;
-
+    private  String sheetId;
     private UserDto userDto;
     private List<RoleDto> roleDto;
     private List<RatesDto> ratesDto;
@@ -90,6 +90,14 @@ public class SlotsDto {
         this.country = country;
     }
 
+    public String getSheetId() {
+        return sheetId;
+    }
+
+    public void setSheetId(String sheetId) {
+        this.sheetId = sheetId;
+    }
+
     public boolean isSlotAvailability() {
         return slotAvailability;
     }
@@ -134,6 +142,10 @@ public class SlotsDto {
                 ", slotAvailability=" + slotAvailability +
                 ", googleLocation='" + googleLocation + '\'' +
                 ", adminName='" + adminName + '\'' +
+                ", sheetId='" + sheetId + '\'' +
+                ", userDto=" + userDto +
+                ", roleDto=" + roleDto +
+                ", ratesDto=" + ratesDto +
                 '}';
     }
 }

@@ -1,5 +1,6 @@
 package com.carparking.project.helper;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.carparking.project.entities.Slots;
 import com.carparking.project.service.SlotsService;
@@ -27,7 +28,8 @@ public class SlotsHelper {
         // Allocate a parking slot to a car
         public Slots parkCar(String vehiclenum) {
             List<Slots> slots = slotsService.getAllSlots(getActiveuser());
-            availableSlots=new PriorityQueue<>(slots);
+            List<Slots> filtered =    slots.stream().filter(s->s.isSlotAvailability()).collect(Collectors.toList());
+            availableSlots=new PriorityQueue<>(filtered);
             if (availableSlots.isEmpty()) {
                 return null;
             }
