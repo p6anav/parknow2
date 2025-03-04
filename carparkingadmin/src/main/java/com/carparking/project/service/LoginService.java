@@ -34,7 +34,6 @@ public class LoginService {
             return "Login Is Valid";
         }
 
-    }
 
     public void updateStatus(String errorcode,String email){
       Optional<Login> login =  loginRepository.findById(email);
